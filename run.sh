@@ -7,4 +7,7 @@ WORKING_DIR=$(realpath "$WORKING_DIR")
 docker run -it --net=host --env="DISPLAY" \
   --volume="$HOME/.Xauthority:/root/.Xauthority" \
   --volume="$WORKING_DIR:/work:rw" \
-  pebble-sdk bash
+  --workdir="/work" \
+  --name="pebble-sdk" \
+  pebble-sdk \
+  bash

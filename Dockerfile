@@ -25,3 +25,6 @@ RUN pebble sdk activate 4.3
 
 RUN sed -i "/        node_modules/c\        node_modules = os.path.join(self.get_sdk_path(), 'node_modules')" /pebble-dev/pebble-sdk-4.5-linux64/pebble-tool/pebble_tool/commands/sdk/project/__init__.py
 RUN sed -i "/        virtualenv/c\        virtualenv = '/pebble-dev/pebble-sdk-4.5-linux64/.env'" /pebble-dev/pebble-sdk-4.5-linux64/pebble-tool/pebble_tool/commands/sdk/project/__init__.py
+
+RUN apt-get install -y inotify-tools
+RUN echo "#!/bin/bash\nwhile true; do inotifywait -qq --exclude ./build  ./*; pebble build; done" > /usr/bin/pebble-watch && chmod +x /usr/bin/pebble-watch
